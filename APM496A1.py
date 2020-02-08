@@ -1,18 +1,19 @@
 import numpy as np
+import math
 import matplotlib.pyplot as plt
 from scipy import stats
 
 
 #Q1 (a)
 def plot_gaussian_pdf():
-    mean = 0; std = 1; variance = np.square(std)
-    x = np.arange(-5,5,.01)
-    f = np.exp(-np.square(x-mean)/2*variance)/(np.sqrt(2*np.pi*variance))
-
+    mu = 0
+    variance = 1
+    sigma = math.sqrt(variance)
+    x = np.linspace(mu - 3*sigma, mu + 3*sigma, 100)
+    plt.plot(x, stats.norm.pdf(x, mu, sigma))
     plt.xlabel('x')
     plt.ylabel('probability')
     plt.title('Gaussian Distribution Mean 0, Std 1')
-    plt.plot(x,f)
     plt.savefig('/Users/jinhanmei/Desktop/Gaussian.png')
     plt.show()
 
@@ -37,11 +38,11 @@ def data_estimators(mean, sigma):
     std = np.std(sample_data)
     skew = stats.skew(sample_data)
     kurtosis = stats.kurtosis(sample_data)
-    return mean, std, skew, kurtosis
+    print( mean, std, skew, kurtosis)
 
 
 if __name__== '__main__':
     np.random.seed(496)
     plot_gaussian_pdf()
-    plot_gaussian_hist(0 ,0.1)
-    data_estimators(0, 0.1)
+    plot_gaussian_hist(0 ,1)
+    data_estimators(0, 1)
